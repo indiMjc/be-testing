@@ -5,6 +5,12 @@ function find() {
   return db("users").select("id", "username");
 }
 
+// select user by filter
+function findBy(username){
+    return db("users").where({ username: username }).first();
+}
+
+// adds new user
 function add(user) {
   return db("users")
     .insert(user)
@@ -14,6 +20,7 @@ function add(user) {
 }
 
 module.exports = {
-    find, 
+    find,
+    findBy,
     add
 }
