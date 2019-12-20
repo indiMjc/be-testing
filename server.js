@@ -11,8 +11,10 @@ server.use(express.json());
 
 // routes
 const authRoute = require('./routes/authorization/authorization');
+const ticketRoute = require('./routes/tickets/tickets');
 
 server.use('/api/auth/', authRoute);
+server.use('/api/tickets/', ticketRoute);
 
 server.get('/api/', (req, res) => {
     res.status(200).json({ message: "Welcome to my api." });
