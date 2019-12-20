@@ -3,9 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('./auth-model');
 const generateToken = require('../../generateToken');
+const middleware = require('../../middleware/authmiddleware');
 
 // host/api/auth/
-router.get('/', async (req, res) => {
+router.get('/', middleware.helperAuth, async (req, res) => {
     try {
         const users = await db.find();
         res.status(200).json({ users });
