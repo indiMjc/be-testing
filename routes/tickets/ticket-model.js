@@ -12,7 +12,7 @@ function add(ticket){
 
 // removes ticket by id
 function removeTicket(id){
-    return db('tickets').delete('*').where({ id });
+    return db('tickets').where({ id }).delete();
 }
 
 // update ticket

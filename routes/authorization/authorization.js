@@ -43,5 +43,19 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// host/api/auth/
+router.delete('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const deleted = await db.removeUser(id);
+        if(deleted.length > 0){
+            res.status(204);
+        } else {
+            res.status(401).json({ message: "User not found." });
+        }
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+})
 
 module.exports = router;

@@ -16,8 +16,14 @@ function add(user) {
   return db("users").insert(user).returning(["id", "username", "type"]);
 }
 
+// removes user
+function removeUser(id){
+  return db('users').where({ id }).delete("*");
+}
+
 module.exports = {
     find,
     findBy,
-    add
+    add,
+    removeUser
 }
