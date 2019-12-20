@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('./auth-model');
+const generateToken = require('../../generateToken');
 
 // host/api/auth/
 router.get('/', async (req, res) => {
@@ -30,7 +31,12 @@ router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await db.findBy(username);
-        res.status(201).json({ message: "welcome " + username });
+        if(user && bcrypt.compareSync(password, user.password)){
+            const token = generateToken(user);
+            res.status(200).json({ message: `Welcome ${user.username}`, token });
+        } else {
+            res.status(401).json({ message: "Invalid credentials" });
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({ error });
