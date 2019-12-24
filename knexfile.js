@@ -27,18 +27,9 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user: 'indimjc1@gmail.com',
-      password: process.env.PW
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: './data/migrations'
-    }
+    client: 'pg',
+    connection: process.env.NODE_ENV,
+    migrations: { directory: './data/migrations' },
+    seeds: { directory: './data/seeds' }
   }
 };
